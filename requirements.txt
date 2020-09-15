@@ -1,0 +1,5 @@
+Django==3.1.1
+django_tinymce
+django_crispy_forms
+django-allauth
+Pillow
