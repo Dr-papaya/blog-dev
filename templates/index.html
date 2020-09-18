@@ -41,7 +41,7 @@
                     <a href="#">{{ cat }}</a>
                     {% endfor %}
                   </div>
-                  <a href="post/{{ obj.pk }}/">
+                  <a href="{{ obj.get_absolute_url }}">
                     <h2 class="h4">{{ obj.title }}</h2>
                     </a>
                 </header>
@@ -73,16 +73,16 @@
       </div>
     </section>
     <!-- Latest Posts -->
-    <section class="latest-posts"> 
+    <section class="latest-posts">
       <div class="container">
-        <header> 
+        <header>
           <h2>Most recent posts:</h2>
           <p class="text-big">“Stay patient and trust the journey.”</p>
         </header>
         <div class="row">
           {% for obj in latest %}
           <div class="post col-md-4">
-            <div class="post-thumbnail"><a href="#"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+            <div class="post-thumbnail"><a href="{{ obj.get_absolute_url }}"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
             <div class="post-details">
               <div class="post-meta d-flex justify-content-between">
                 <div class="date">{{ obj.timestamp }}</div>
@@ -91,7 +91,7 @@
                   <a href="#">{{ cat }}</a>
                   {% endfor %}
                   </div>
-              </div><a href="#">
+              </div><a href="{{ obj.get_absolute_url }}">
                 <h3 class="h4">{{ obj.title }}</h3></a>
               <p class="text-muted">{{ obj.overview|linebreaks|truncatechars:200 }}</p>
             </div>
@@ -101,7 +101,7 @@
       </div>
     </section>
     <!-- Newsletter Section-->
-    <section class="newsletter no-padding-top">    
+    <section class="newsletter no-padding-top">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -123,7 +123,7 @@
       </div>
     </section>
     <!-- Gallery Section-->
-    <section class="gallery no-padding">    
+    <section class="gallery no-padding">
       <div class="row">
         <div class="mix col-lg-3 col-md-3 col-sm-6">
           <div class="item"><a href="img/gallery-1.jpg" data-fancybox="gallery" class="image"><img src="{% static 'img/gallery-1.jpg' %}" alt="..." class="img-fluid">

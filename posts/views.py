@@ -26,7 +26,7 @@ class SearchView(View):
         if query:
             queryset = queryset.filter(
                 Q(title__icontains=query) |
-                Q(overview__icontains=query)
+                Q(content__icontains=query)
             ).distinct()
         context = {
             'queryset': queryset
@@ -40,7 +40,7 @@ def search(request):
     if query:
         queryset = queryset.filter(
             Q(title__icontains=query) |
-            Q(overview__icontains=query)
+            Q(content__icontains=query)
         ).distinct()
     context = {
         'queryset': queryset
@@ -119,8 +119,12 @@ class PostListView(ListView):
 def post_list(request):
     category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
-    post_list = Post.objects.all()
-    paginator = Paginator(post_list, 4)
+
+    #post_list = Post.objects.all()
+    #paginator = Paginator(post_list, 8)
+    most_recent_all = Post.objects.order_by('-timestamp')
+    paginator = Paginator(most_recent_all, 8)
+
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     try:
@@ -254,7 +258,7 @@ class PostUpdateView(UpdateView):
 
     def form_valid(self, form):
         # here is to check the user if he has the permisstion to revise
-        #form.instance.author = get_author(self.request.user)
+        form.instance.author = get_author(self.request.user)
 
         form.save()
         return redirect(reverse("post-detail", kwargs={

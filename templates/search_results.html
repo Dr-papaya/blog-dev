@@ -2,11 +2,25 @@
 {% load static %}
 
 {% block content %}
-
-<h2>This is the results of your search</h2>
-{% for post in queryset %}
-    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    <br />
-{% endfor %}
+<div class="container">
+  <br />
+  <h2>Results of your search: </h2>
+      {% for post in queryset %}
+      <div style="width:13%;height:13%;display:inline-block;"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-thumbnail"></a></div>
+      <div class="post-details" style="display:inline-block;">
+        <div class="post-meta d-flex justify-content-between">
+          {% comment %} <div class="date meta-last">18 Feb | 2020</div> {% endcomment %}
+          <div class="category">
+          {% for cat in post.categories.all %}
+          <a href="#">{{ cat }}</a>
+          {% endfor %}
+          </div>
+        </div><a href="{{ post.get_absolute_url }}">
+          <h3 style="background-color:#C0FF3E;">{{ post.title }}</h3></a>
+      </div>
+      <br /><br />
+      {% endfor %}
+      <br />
+</div>
 
 {% endblock %}
